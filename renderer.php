@@ -555,7 +555,7 @@ class format_vv_course_renderer extends core_course_renderer {
         $hasmanageactivities = has_capability('moodle/course:manageactivities', $modcontext);
 
         if (!isset($str)) {
-            $str = get_strings(array('delete', 'move', 'editsettings', 'hide', 'show'), 'moodle');
+            $str = get_strings(array('delete', 'move', 'update', 'hide', 'show'), 'moodle');
         }
 
         $baseurl = new moodle_url('/course/mod.php', array('sesskey' => sesskey()));
@@ -568,7 +568,7 @@ class format_vv_course_renderer extends core_course_renderer {
         if ($hasmanageactivities) {
             if (!preg_match('/^\d+_(label|section|document|question|link)_\d+/', $mod->idnumber)) {
                 $output .= $this->output->action_link(
-                    new moodle_url($baseurl, array('copy' => $mod->id)), '',  null, array(),
+                    new moodle_url($baseurl, array('copy' => $mod->id)),
                     new pix_icon('t/move', $str->move, 'moodle', array('class' => 'iconsmall', 'title' =>  $str->move))
                 );
             }
@@ -577,8 +577,8 @@ class format_vv_course_renderer extends core_course_renderer {
         // Update.
         if ($hasmanageactivities) {
             $output .= $this->output->action_link(
-                new moodle_url($baseurl, array('update' => $mod->id)), '',  null, array(),
-                new pix_icon('t/edit', $str->editsettings, 'moodle', array('class' => 'iconsmall', 'title' =>  $str->editsettings))
+                new moodle_url($baseurl, array('update' => $mod->id)),
+                new pix_icon('t/edit', $str->update, 'moodle', array('class' => 'iconsmall', 'title' =>  $str->update))
             );
         }
 
@@ -586,12 +586,12 @@ class format_vv_course_renderer extends core_course_renderer {
         if (has_capability('moodle/course:activityvisibility', $modcontext)) {
             if ($mod->visible) {
                 $output .= $this->output->action_link(
-                    new moodle_url($baseurl, array('hide' => $mod->id)), '', null, array(),
+                    new moodle_url($baseurl, array('hide' => $mod->id)),
                     new pix_icon('t/hide', $str->hide, 'moodle', array('class' => 'iconsmall', 'title' => $str->hide))
                 );
             } else {
                 $output .= $this->output->action_link(
-                    new moodle_url($baseurl, array('show' => $mod->id)), '', null, array(),
+                    new moodle_url($baseurl, array('show' => $mod->id)),
                     new pix_icon('t/show', $str->show, 'moodle', array('class' => 'iconsmall', 'title' => $str->show))
                 );
             }
@@ -600,7 +600,7 @@ class format_vv_course_renderer extends core_course_renderer {
         // Delete.
         if ($hasmanageactivities) {
             $output .= $this->output->action_link(
-                new moodle_url($baseurl, array('delete' => $mod->id)), '', null, array(),
+                new moodle_url($baseurl, array('delete' => $mod->id)),
                 new pix_icon('t/delete', $str->delete, 'moodle', array('class' => 'iconsmall', 'title' => $str->delete))
             );
         }
@@ -640,8 +640,8 @@ class format_vv_course_renderer extends core_course_renderer {
         // Avoid unnecessary duplication: if e.g. a forum name already
         // includes the word forum (or Forum, etc) then it is unhelpful
         // to include that in the accessible description that is added.
-        if (false !== strpos(core_text::strtolower($instancename),
-                core_text::strtolower($altname))) {
+        if (false !== strpos(textlib::strtolower($instancename),
+                 textlib::strtolower($altname))) {
             $altname = '';
         }
         // File type after name, for alphabetic lists (screen reader).
@@ -660,7 +660,8 @@ class format_vv_course_renderer extends core_course_renderer {
         if ($mod->uservisible) {
             $conditionalhidden = $this->is_cm_conditionally_hidden($mod);
             $accessiblebutdim = (!$mod->visible || $conditionalhidden) &&
-                has_capability('moodle/course:viewhiddenactivities', $mod->context);
+                has_capability('moodle/course:viewhiddenactivities',
+                        context_course::instance($mod->course));
             if ($accessiblebutdim) {
                 $linkclasses .= ' dimmed';
                 $textclasses .= ' dimmed_text';
