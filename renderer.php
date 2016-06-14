@@ -60,16 +60,15 @@ class format_vv_renderer extends format_topics_renderer {
                 continue;
             }
             // Show the section if the user is permitted to access it, OR if it's not available
-            // but there is some available info text which explains the reason & should display.
+            // but showavailability is turned on (and there is some available info text).
             $showsection = $thissection->uservisible ||
-                    ($thissection->visible && !$thissection->available &&
-                    !empty($thissection->availableinfo));
+                    ($thissection->visible && !$thissection->available && $thissection->showavailability
+                    && !empty($thissection->availableinfo));
             if (!$showsection) {
-                // If the hiddensections option is set to 'show hidden sections in collapsed
-                // form', then display the hidden section message - UNLESS the section is
-                // hidden by the availability system, which is set to hide the reason.
+                // Hidden section message is overridden by 'unavailable' control
+                // (showavailability option).
                 if (!$course->hiddensections && $thissection->available) {
-                    echo $this->section_hidden($section, $course->id);
+                    echo $this->section_hidden($section);
                 }
 
                 continue;
@@ -431,7 +430,7 @@ class format_vv_course_renderer extends core_course_renderer {
             $modicons = '';
             if ($this->page->user_is_editing()) {
                 $modicons .= $this->get_cm_edit_actions($mod, $mod->indent, $sectionreturn);
-                $modicons .= $mod->afterediticons;
+                $modicons .= $mod->get_after_edit_icons();
             }
             if (!empty($modicons)) {
                 $icons .= html_writer::span($modicons, 'actions');
@@ -441,7 +440,7 @@ class format_vv_course_renderer extends core_course_renderer {
         }
 
         if ($modulehtml = $this->course_section_cm($course, $completioninfo, $mod, $sectionreturn, $displayoptions)) {
-            $modclasses = 'vv-activity ' . $mod->modname . ' modtype_' . $mod->modname . ' ' . $mod->extraclasses;
+            $modclasses = 'vv-activity ' . $mod->modname . ' modtype_' . $mod->modname . ' ' . $mod->get_extra_classes();
             $output .= html_writer::tag('li', $modulehtml, array('class' => $modclasses, 'id' => 'module-' . $mod->id));
         }
         return $output;
@@ -475,10 +474,15 @@ class format_vv_course_renderer extends core_course_renderer {
         // if:
         // 1) The activity is not visible to users
         // and
-        // 2) The 'availableinfo' is empty, i.e. the activity was
+        // 2a) The 'showavailability' option is not set (if that is set,
+        //     we need to display the activity so we can show
+        //     availability info)
+        // or
+        // 2b) The 'availableinfo' is empty, i.e. the activity was
         //     hidden in a way that leaves no info, such as using the
         //     eye icon.
-        if (!$mod->uservisible && empty($mod->availableinfo)) {
+        if (!$mod->uservisible &&
+            (empty($mod->showavailability) || empty($mod->availableinfo))) {
             return $output;
         }
 
@@ -490,7 +494,7 @@ class format_vv_course_renderer extends core_course_renderer {
         $modicons = '';
         if ($this->page->user_is_editing()) {
             $modicons .= $this->get_cm_edit_actions($mod, $mod->indent, $sectionreturn);
-            $modicons .= $mod->afterediticons;
+            $modicons .= $mod->get_after_edit_icons();
         }
 
         $modicons .= $this->course_section_cm_completion($course, $completioninfo, $mod, $displayoptions);
@@ -508,7 +512,7 @@ class format_vv_course_renderer extends core_course_renderer {
             $output .= $cmname;
 
             // Module can put text after the link (e.g. forum unread)
-            $output .= $mod->afterlink;
+            $output .= $mod->get_after_link();
 
             // Closing the tag which contains everything but edit icons. Content part of the module should not be part of this.
             $output .= html_writer::end_tag('div'); // .activityinstance
@@ -620,11 +624,13 @@ class format_vv_course_renderer extends core_course_renderer {
     public function course_section_cm_name(cm_info $mod, $displayoptions = array()) {
         global $CFG;
         $output = '';
-        if (!$mod->uservisible && empty($mod->availableinfo)) {
+        if (!$mod->uservisible &&
+                (empty($mod->showavailability) || empty($mod->availableinfo))) {
             // nothing to be displayed to the user
             return $output;
         }
-        if (!$mod->url) {
+        $url = $mod->get_url();
+        if (!$url) {
             return $output;
         }
 
@@ -672,7 +678,7 @@ class format_vv_course_renderer extends core_course_renderer {
 
         // Get on-click attribute value if specified and decode the onclick - it
         // has already been encoded for display (puke).
-        $onclick = htmlspecialchars_decode($mod->onclick, ENT_QUOTES);
+        $onclick = htmlspecialchars_decode($mod->get_on_click(), ENT_QUOTES);
 
         $groupinglabel = '';
         if (!empty($mod->groupingid) && has_capability('moodle/course:managegroups', context_course::instance($mod->course))) {
@@ -703,7 +709,7 @@ class format_vv_course_renderer extends core_course_renderer {
         $activitylink = $icon . $accesstext .
                 html_writer::tag('span', $instancename . $altname, array('class' => 'instancename'));
         if ($mod->uservisible) {
-            $output .= html_writer::link($mod->url, $activitylink, array('class' => $linkclasses, 'onclick' => $onclick)) .
+            $output .= html_writer::link($url, $activitylink, array('class' => $linkclasses, 'onclick' => $onclick)) .
                     $groupinglabel;
         } else {
             // We may be displaying this just in order to show information
