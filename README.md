@@ -1,4 +1,4 @@
-Formato de curso para Vicens Vives (Moodle 2.5)
+Formato de curso para Vicens Vives (Moodle 2.3)
 ===============================================
 
 Formato de cursos basado en el formato por temas. Muestra la estructura del
