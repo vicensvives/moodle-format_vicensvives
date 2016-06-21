@@ -69,3 +69,5 @@ Mover actividades
 
 No se muestra el botón para mover una actividad en las actividades importadas.
 Las creadas manualmente se pueden mover normalmente.
+
+
