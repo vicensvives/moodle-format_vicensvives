@@ -63,6 +63,10 @@ h3.vv-sectionname {
     cursor: pointer;
 }
 
+li.vv-section.hidden h3.vv-sectionname {
+    opacity: 0.5;
+}
+
 .vv-icon-section {
     float: left;
     width: 30px;
@@ -106,6 +110,11 @@ ul.vv-section {
     counter-reset: subsection;
     padding: 0;
     margin: 0;
+}
+
+li.vv-section.hidden {
+    display: block;
+    visibility: visible;
 }
 
 li.vv-subsection {

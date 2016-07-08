@@ -1,5 +1,5 @@
-Formato de curso para Vicens Vives (Moodle 2.7 y 2.8)
-=====================================================
+Formato de curso para Vicens Vives
+==================================
 
 Formato de cursos basado en el formato por temas. Muestra la estructura del
 curso organizada por temas, apartados y actividades. El tema gráfico tiene un
@@ -7,6 +7,8 @@ color asignado según la materia del curso.
 
 Los ficheros de Javscript (format.js) y CSS (styles.css) son iguales en todas
 las versiones de Moodle.
+
+Versiones de Moodle: 3.1
 
 Estructura
 ----------

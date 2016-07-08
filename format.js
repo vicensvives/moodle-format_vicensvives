@@ -26,14 +26,15 @@
 
     function handleH3Pressed() {
         var state = $(this).attr('data-state');
-        if (state === undefined) $(this).attr('data-state','closed');
+        if (state === undefined) {
+            $(this).attr('data-state','closed');
+        }
         state = $(this).attr('data-state');
         if (state === 'opened') {
             $(this).parent().find('> ul.vv-section').slideUp();
             $(this).removeClass('vv-opened');
             $(this).attr('data-state','closed');
-        }
-        else {
+        } else {
             $(this).parent().find('> ul.vv-section').slideDown();
             $(this).addClass('vv-opened');
             $(this).attr('data-state','opened');
@@ -42,15 +43,15 @@
 
     function handleLiPressed() {
         var state = $(this).attr('data-state');
-        if (state === undefined) $(this).attr('data-state','closed');
+        if (state === undefined) {
+            $(this).attr('data-state','closed');
+        }
         state = $(this).attr('data-state');
-        console.log('state: '+state);
         if (state === 'opened') {
             $(this).parent().find('> ul.vv-subsection').slideUp();
             $(this).removeClass('vv-opened');
             $(this).attr('data-state','closed');
-        }
-        else {
+        } else {
             $(this).parent().find('> ul.vv-subsection').slideDown();
             $(this).addClass('vv-opened');
             $(this).attr('data-state','opened');
