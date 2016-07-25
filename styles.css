@@ -4,21 +4,21 @@
 
 .vv-title {
     padding: 0px 0px 0px 15px;
-    border-radius: 3px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     -ms-border-radius: 5px;
     -o-border-radius: 5px;
-    background-image: url([[pix:format_vv|logo_EduBook3D_cuadradorojo]]);
+    border-radius: 5px;
+    background-image: url([[pix:format_vv|edubook]]);
     background-repeat: no-repeat;
-    background-size: 60px;
+    background-size: 57px;
     background-position: right center;
     background-color: gray;
     font-size: 22px;
     color: #ffffff;
     font-weight: 400;
     letter-spacing: 0.025em;
-    line-height: 2.6em;
+    line-height: 57px;
     margin: 0;
 }
 
