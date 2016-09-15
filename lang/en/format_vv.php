@@ -15,10 +15,10 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 $string['pluginname'] = 'Vicens Vives format';
-$string['currentsection'] = 'This topic';
-$string['sectionname'] = 'Topic';
+$string['currentsection'] = 'This unit';
+$string['sectionname'] = 'Unit';
 $string['section0name'] = 'General';
-$string['page-course-view-topics'] = 'Any course main page in topics format';
-$string['page-course-view-topics-x'] = 'Any course page in topics format';
-$string['hidefromothers'] = 'Hide topic';
-$string['showfromothers'] = 'Show topic';
+$string['page-course-view-topics'] = 'Any course main page in units format';
+$string['page-course-view-topics-x'] = 'Any course page in units format';
+$string['hidefromothers'] = 'Hide units';
+$string['showfromothers'] = 'Show units';

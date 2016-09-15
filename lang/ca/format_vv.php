@@ -15,10 +15,10 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 $string['pluginname'] = 'Format Vicens Vives';
-$string['currentsection'] = 'Tema actual';
-$string['hidefromothers'] = 'Oculta el tema';
-$string['page-course-view-topics'] = 'Qualsevol curs de la pàgina principal en format de temes';
-$string['page-course-view-topics-x'] = 'Qualsevol pàgina del curs en format de temes';
+$string['currentsection'] = 'Unitat actual';
+$string['hidefromothers'] = 'Ocultar unitat';
+$string['page-course-view-topics'] = 'Qualsevol pàgina principal de curs en format per unitats';
+$string['page-course-view-topics-x'] = 'Qualsevol pàgina de curs en format per unitats';
 $string['section0name'] = 'General';
-$string['sectionname'] = 'tema';
-$string['showfromothers'] = 'Mostra tema';
+$string['sectionname'] = 'Unitat';
+$string['showfromothers'] = 'Mostrar unitat';
