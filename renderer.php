@@ -597,7 +597,7 @@ class format_vv_course_renderer extends core_course_renderer {
 
         // Move
         if ($hasmanageactivities) {
-            if (!preg_match('/^\d+_(label|section|document|question|link)_\d+/', $mod->idnumber)) {
+            if (!preg_match('/^\d+_(label|section|document|question|link|video|mauthorgym|mauthorcloudlibrary|mauthor)_\d+/', $mod->idnumber)) {
                 $output .= $this->output->action_link(
                     new moodle_url($baseurl, array('copy' => $mod->id)), '',  null, array(),
                     new pix_icon('t/move', $str->move, 'moodle', array('class' => 'iconsmall', 'title' => $str->move))
@@ -725,6 +725,14 @@ class format_vv_course_renderer extends core_course_renderer {
             $icon = html_writer::tag('div', '', array('class' => 'vv-icon-activity'));
         } else if (preg_match('/link/', $mod->idnumber)) {
             $icon = html_writer::tag('div', '', array('class' => 'vv-icon-link'));
+        } else if (preg_match('/video/', $mod->idnumber)) {
+            $icon = html_writer::tag('div', '', array('class' => 'vv-icon-video'));
+        } else if (preg_match('/mauthorgym/', $mod->idnumber)) {
+            $icon = html_writer::tag('div', '', array('class' => 'vv-icon-mauthorgym'));
+        } else if (preg_match('/mauthorcloudlibrary/', $mod->idnumber)) {
+            $icon = html_writer::tag('div', '', array('class' => 'vv-icon-mauthorcloudlibrary'));
+        } else if (preg_match('/mauthor/', $mod->idnumber)) {
+            $icon = html_writer::tag('div', '', array('class' => 'vv-icon-mauthor'));
         } else {
             $attributes = array(
                 'src' => $mod->get_icon_url(),
