@@ -206,13 +206,21 @@ class format_vv_renderer extends format_topics_renderer {
         // When on a section page, we only display the general section title, if title is not the default one
         $hasnamesecpg = ($onsectionpage && ($section->section == 0 && !is_null($section->name)));
 
-        $classes = ' accesshide';
-        if ($hasnamenotsecpg || $hasnamesecpg) {
-            $classes = '';
+        // Ocultar despliegue en secciones vacías.
+        $classes = 'vv-sectionname';
+        if ($section->sequence == '') {
+                $classes .= ' vv-void';
+        }
+        if (!$hasnamenotsecpg && !$hasnamesecpg) {
+            $classes .= ' accesshide';
         }
 
+        // Ocultar despliegue en secciones vacías.
         $icons = html_writer::tag('span', '', array('class' => 'vv-icon-section'));
-        $icons .= html_writer::tag('span', '', array('class' => 'vv-icon-arrow'));
+        if ($section->sequence != '') {
+                $icons .= html_writer::tag('span', '', array('class' => 'vv-icon-arrow'));
+        }
+
         $edit = '';
 
         $context = context_course::instance($course->id);
@@ -229,7 +237,9 @@ class format_vv_renderer extends format_topics_renderer {
         }
 
         $title = $this->section_title($section, $course);
-        $o .= $this->output->heading($icons . $title . ' ' . $edit, 3, 'vv-sectionname' . $classes);
+
+        // Ocultar despliegue en secciones vacías.
+        $o .= $this->output->heading($icons . $title . ' ' . $edit, 3, $classes);
 
         $o .= $this->section_availability_message($section,
                 has_capability('moodle/course:viewhiddensections', $context));

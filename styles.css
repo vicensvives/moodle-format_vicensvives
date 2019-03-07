@@ -387,3 +387,6 @@ li.vv-activity .contentafterlink {
 .vv-sociales .vv-icon-mauthorcloudlibrary {
     background-image: url([[pix:format_vv|icon-mauthorcloudlibrary-G]]);
 }
+h3.vv-sectionname.vv-void{
+    cursor: default;
+}
