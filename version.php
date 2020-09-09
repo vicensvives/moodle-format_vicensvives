@@ -16,6 +16,6 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 202090800;
+$plugin->version = 2020090800;
 $plugin->requires  = 2014111000;
 $plugin->component = 'format_vv';
