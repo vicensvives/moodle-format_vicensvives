@@ -83,6 +83,11 @@
         "highlightedlabel" : "Highlighted"
     }
 }}
+{{#controlmenu}}
+    {{$ core_courseformat/local/content/section/controlmenu }}
+        {{> format_vv/local/content/section/controlmenu }}
+    {{/ core_courseformat/local/content/section/controlmenu }}
+{{/controlmenu}}
 {{#singleheader}}
 {{$ core_courseformat/local/content/section/header }}
     {{> format_vv/local/content/section/header }}
@@ -118,11 +123,6 @@
     </a>
     </div>
 {{/collapsemenu}}
-{{#controlmenu}}
-    {{$ core_courseformat/local/content/section/controlmenu }}
-        {{> core_courseformat/local/content/section/controlmenu }}
-    {{/ core_courseformat/local/content/section/controlmenu }}
-{{/controlmenu}}
 </div>
 <div id="coursecontentcollapse{{num}}"
     class="content {{^iscoursedisplaymultipage}}
