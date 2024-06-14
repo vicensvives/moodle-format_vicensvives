@@ -54,10 +54,11 @@ class content extends content_base {
         $data = parent::export_for_template($output);
         // Unset initial section title so no name is shown.
         // $data->initialsection->header->title = '';
+        // But probably is better to prepare own template for initial section.
         $course = $this->format->get_course();
         $data->booktype = $this->get_book_type($course);
         $context = context_course::instance($course->id);
-        $data->coursefullname = format_string($course->fullname, true, array('context' => $context));
+        $data->coursefullname = format_string($course->fullname, true, ['context' => $context]);
         return $data;
     }
 
